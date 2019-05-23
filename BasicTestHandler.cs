@@ -59,8 +59,18 @@ namespace YOACOMClientCSharp
                 m_mainForm.btnBTAutoUnRegist.Enabled = true;
 
                 m_mainForm.lbLog.Items.Insert(0, "[11]주식 실시간체결 Auto가 등록 되었습니다.");
+                List<string> value = new List<string>();
+                MainForm.Master종합정보.Add(m_strJongCode, value);
+                MainForm.regist_count++;
+                // MainForm.Master종합정보[m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0)]= "null";
+
                 //Console.WriteLine("3");
 
+            }
+            else
+            {
+                string strMsg = m_iYuantaAPI.YOA_GetErrorMessage(nReqID);     // 실시간 등록 실패에 대한 메시지를 얻을 수 있습니다.
+                m_mainForm.lbLog.Items.Add(strMsg);
             }
         }
         public void UnRegistAuto()
@@ -123,33 +133,37 @@ namespace YOACOMClientCSharp
 
             }
         }
-
         public void ReceiveRealData(int nReqID, string strAutoID)
         {
-            if (-1 != strAutoID.CompareTo("11"))
+            if (MainForm.jongCodeList_kosdaq.Length == MainForm.regist_count && MainForm.receive_flag == true)
             {
-                string strOutCode = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0);
-                strOutCode.Trim();
-
-                if (MainForm.jongCodeList.Contains(m_strJongCode))
-                {/*
-                    //int nCurJuka = m_iYuantaAPI.YOA_GetTRFieldLong("11", "OutBlock1", "curjuka", 0);
-                    m_mainForm.txtBTCurJuka.Text = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "curjuka", 0);
-                    m_mainForm.txtBTDebi.Text = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debi", 0);
-                    m_mainForm.txtBTDebiRate.Text = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debirate", 0);
-                    m_mainForm.txtBTVolume.Text = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "volume", 0);
-                    */
+                if (-1 != strAutoID.CompareTo("11"))
+                {
+                    string strOutCode = m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0);
+                    strOutCode.Trim();
                     
                     // 추가부분 - 메인 로그에 정보찍기
-                    Console.WriteLine("종목코드 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0)+"------------------");       // 종목명
+                    Console.WriteLine("종목코드 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0));       // 종목명
                     Console.WriteLine("현재가 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "curjuka", 0));       // 현재가
                     Console.WriteLine("전일대비 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debi", 0));      // 전일대비
                     Console.WriteLine("등락률 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debirate", 0));    // 등락률
                     Console.WriteLine("거래량 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "volume", 0));      // 거래량
-                    //Console.WriteLine("4");
 
+                    List<string> value = new List<string>();
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0));    // 종목코드
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "curjuka", 0));     // 현재가
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debi", 0));        // 전일대비
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debirate", 0));    // 등락률
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "volume", 0));      // 거래량
+
+                    if (strOutCode.Length == 6)
+                        MainForm.Master종합정보[strOutCode] = value;
+                    // 저장
+                    MainForm.testdb_insert(value);
+                    //Console.WriteLine("4");
                 }
             }
         }
+
     }
 }
