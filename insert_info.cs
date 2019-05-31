@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +19,18 @@ namespace YOACOMClientCSharp
         public object Debirate { get; set; }
 
         public object Volume { get; set; }
+
+        public object chejuka { get; set; }
+
+        public object cpower { get; set; }
+
+        public string time = DateTime.Now.ToString("HHmmss");
+
         // 추가 
 
         public override string ToString()
         {
-            return Jongcode + " " + Curjuka + "" + Debi + "" + Debirate + "" + Volume;//  추가되면 뒤에 변수 + " "붙여 줄것
+            return Jongcode + "" + Curjuka + "" + Debi + "" + Debirate + "" + Volume+""+ chejuka + ""+ cpower+""+time;//  추가되면 뒤에 변수 + " "붙여 줄것
         }
     }
 }
