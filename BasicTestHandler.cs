@@ -148,6 +148,8 @@ namespace YOACOMClientCSharp
                     Console.WriteLine("전일대비 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debi", 0));      // 전일대비
                     Console.WriteLine("등락률 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debirate", 0));    // 등락률
                     Console.WriteLine("거래량 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "volume", 0));      // 거래량
+                    Console.WriteLine("체결량 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "chejuka", 0));      // 체결량
+                    Console.WriteLine("체결강도 :" + m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "chegyulrate", 0));      // 체결강도
 
                     List<string> value = new List<string>();
                     value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "jongcode", 0));    // 종목코드
@@ -155,6 +157,8 @@ namespace YOACOMClientCSharp
                     value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debi", 0));        // 전일대비
                     value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "debirate", 0));    // 등락률
                     value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "volume", 0));      // 거래량
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "chejuka", 0));      // 체결량
+                    value.Add(m_iYuantaAPI.YOA_GetTRFieldString("11", "OutBlock1", "chegyulrate", 0));      // 체결강도
 
                     if (strOutCode.Length == 6)
                         MainForm.Master종합정보[strOutCode] = value;
