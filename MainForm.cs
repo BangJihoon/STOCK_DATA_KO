@@ -85,7 +85,7 @@ namespace YOACOMClientCSharp
                 count++;
                 if (count % 15 == 0)        // 5초당 15개씩 등록
                 {
-                    Delay(5000);
+                    Delay(4000);
                     //Console.WriteLine(count + "번째 종목 등록-------------------" + jongCode + "-----------" + nReqID);
                     Console.WriteLine("등록 종목수: " + count);
                  }
@@ -114,7 +114,7 @@ namespace YOACOMClientCSharp
         //19.05.20 igg added
         public static void testdb_insert(List<string> value)
         {
-            insert_info svi = new insert_info { Jongcode = value[0], Curjuka = value[1], Debi = value[2], Debirate = value[3], Volume = value[4] }; //id는 초기값 알아서 들어감.
+            insert_info svi = new insert_info { Jongcode = value[0], Curjuka = value[1], Debi = value[2], Debirate = value[3], Volume = value[4], chejuka = value[5], cpower = value[6] }; //id는 초기값 알아서 들어감.
             collection.Insert(svi);
         }
 
@@ -327,7 +327,7 @@ namespace YOACOMClientCSharp
 
             if (CommDef.RESULT_SUCCESS == m_iYuantaAPI.YOA_Initial(strURL, strPath))
             {
-                if (strURL == "real.tradar.api.com" || strURL == "simul.tradarglobal.api.com")
+                if (strURL == "real.tradar.api.com" || strURL == "real.tradar.api.com")
                     // MessageBox.Show("모의투자로 접속합니다.\n모의투자의 계좌비밀번호는 0000입니다.", "알림", MessageBoxButtons.OK);
 
                 btnLogin.Enabled = true;
